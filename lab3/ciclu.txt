@@ -1,0 +1,35 @@
+path(X, Y, V) :- not(member(X, V)), connected(X, Z), path(Z, Y, [X | V]).
+path(X, Y, _):- connected(X, Y).
+path(X, Y) :- path(X, Y, []).
+
+
+connected(1,2).
+connected(2,1).
+connected(1,3).
+connected(3,4).
+
+
+path(1, 4) => path(1,4, []) => 
+
+1) path(1, 4, []) => connected(1,2), path(2,4, [1]) 
+ path(2,4, [1])  => connected(2,1) , path(1, 4, [1,2])
+path(1, 4, [1,2]) => False  => False
+
+2) path(1, 4, []) => connected(1,3), path(3,4, [1]) 
+path(3,4, [1])  => True, connected(3,4) = True , path(4,4, [1,3]) = False 
+path(4,4, [1,3]) => True , False
+path(4, 4, _) =>  False
+
+
+3) path(3,4, [1])  => True, connected(3,4) = True , path(4,4, [1,3]) = False 
+ => path(3, 4, _):- connected(3, 4). => True
+
+
+Incercare lab problema - varianta facuta de prof este in lab3.pl
+% verificare([X], [X|_]).
+% verificare([_| TailX], Y) :- verificare(TailX, Y).
+
+% mutant(X) :- animal(Y),
+%		name(X, Ascii1), 
+%		name(Y, Ascii2),
+%		verificare(Ascii1, Ascii2). 
